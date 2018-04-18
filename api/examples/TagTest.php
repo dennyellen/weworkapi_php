@@ -19,10 +19,10 @@ $config = require('./config.php');
 $api = new CorpAPI($config['CORP_ID'], $config['CONTACT_SYNC_SECRET']);
 
 
-try { 
+try {
     //
     $tag = new Tag();
-    { 
+    {
         $tag->tagname = "tag_1";
     }
     $tagid = $api->TagCreate($tag);
@@ -37,11 +37,12 @@ try {
     $invalidUserIdList = null;
     $invalidPartyIdList = null;
     $api->TagAddUser(
-        $tagid, 
-        array("ZhuShengBen", "abelzhu", "aaaa", "bbbb"), 
-        array(1, 2, 2222, 3333), 
-        $invalidUserIdList, 
-        $invalidPartyIdList);
+        $tagid,
+        array("ZhuShengBen", "abelzhu", "aaaa", "bbbb"),
+        array(1, 2, 2222, 3333),
+        $invalidUserIdList,
+        $invalidPartyIdList
+    );
     var_dump($invalidUserIdList);
     var_dump($invalidPartyIdList);
 
@@ -58,9 +59,7 @@ try {
 
     //
     $api->TagDelete($tagid);
-
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
     $api->TagDelete($tagid);
 }
-

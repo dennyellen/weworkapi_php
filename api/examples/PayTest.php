@@ -17,12 +17,12 @@ $config = require('./config.php');
 $agentId = $config['APP_ID'];
 $api = new CorpAPI($config['CORP_ID'], $config['APP_SECRET']);
  
-try { 
+try {
     $SendWorkWxRedpackReq = new SendWorkWxRedpackReq();
     {
         $SendWorkWxRedpackReq->nonce_str = "nonce_str";
     }
     $api->SendWorkWxRedpack($SendWorkWxRedpackReq);
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }

@@ -20,7 +20,6 @@ $api = new CorpAPI($config['CORP_ID'], $config['APPROVAL_APP_SECRET']);
 try {
     $ApprovalDataList = $api->ApprovalDataGet(1513649733, 1513770113);
     var_dump($ApprovalDataList);
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }
-

@@ -11,11 +11,12 @@ class InvoiceInfo
     public $type = null; // string
     public $payee = null; // string
     public $detail = null; // string
-    public $user_info = null; // InvoiceUserInfo 
+    public $user_info = null; // InvoiceUserInfo
 }
 
 class InvoiceUserInfo
-{ 
+{
+
     public $fee = null; // string
     public $title = null; // string
     public $billing_time = null; // string
@@ -33,7 +34,8 @@ class InvoiceUserInfo
 }
 
 class BillingInfo
-{ 
+{
+
     public $name = null; // string
     public $num = null; // string
     public $unit = null; // string
@@ -43,23 +45,26 @@ class BillingInfo
 
 
 class BatchUpdateInvoiceStatusReq
-{ 
+{
+
     public $openid = null; // string
     public $reimburse_status = null; // string
-    public $invoice_list = null; // InvoiceItem array 
+    public $invoice_list = null; // InvoiceItem array
 }
 class InvoiceItem
-{ 
+{
+
     public $card_id = null; // string
     public $encrypt_code = null; // string
 }
 
 class BatchGetInvoiceInfoReq
-{ 
-    public $item_list = null; // InvoiceItem array 
+{
+
+    public $item_list = null; // InvoiceItem array
 }
 class BatchGetInvoiceInfoRsp
-{ 
-    public $item_list = null; // InvoiceInfo array 
-}
+{
 
+    public $item_list = null; // InvoiceInfo array
+}

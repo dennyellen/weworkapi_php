@@ -19,7 +19,7 @@ $config = require('./config.php');
 $agentId = $config['APP_ID'];
 $api = new CorpAPI($config['CORP_ID'], $config['APP_SECRET']);
 
-try { 
+try {
     //
     $message = new Message();
     {
@@ -33,10 +33,10 @@ try {
         $message->messageContent = new NewsMessageContent(
             array(
                 new NewsArticle(
-                    $title = "Got you !", 
-                    $description = "Who's this cute guy testing me ?", 
-                    $url = "https://work.weixin.qq.com/wework_admin/ww_mt/agenda", 
-                    $picurl = "https://p.qpic.cn/pic_wework/167386225/f9ffc8f0a34f301580daaf05f225723ff571679f07e69f91/0", 
+                    $title = "Got you !",
+                    $description = "Who's this cute guy testing me ?",
+                    $url = "https://work.weixin.qq.com/wework_admin/ww_mt/agenda",
+                    $picurl = "https://p.qpic.cn/pic_wework/167386225/f9ffc8f0a34f301580daaf05f225723ff571679f07e69f91/0",
                     $btntxt = "btntxt"
                 ),
             )
@@ -50,6 +50,6 @@ try {
     var_dump($invalidUserIdList);
     var_dump($invalidPartyIdList);
     var_dump($invalidTagIdList);
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }

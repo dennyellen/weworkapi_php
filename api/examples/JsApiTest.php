@@ -25,7 +25,6 @@ try {
     //
     $ticket = $api->JsApiTicketGet();
     echo $ticket . "\n";
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }
-

@@ -12,16 +12,16 @@ include_once("../src/CorpAPI.class.php");
 include_once("../src/ServiceCorpAPI.class.php");
 include_once("../src/ServiceProviderAPI.class.php");
  
-try { 
+try {
     $authCorpId = "AUTH_CORPID";
     $authAgentId = 1000040;
 
     // 下面是第三方应用接口的使用
     //
     $ServiceCorpAPI = new ServiceCorpAPI(
-        "SUITE_ID", 
+        "SUITE_ID",
         "SUITE_SECRET",
-        "SUITE_TICKET" 
+        "SUITE_TICKET"
     );
 
     $pre_auth_code = $ServiceCorpAPI->GetPreAuthCode();
@@ -33,7 +33,7 @@ try {
         $SetSessionInfoReq->pre_auth_code = $pre_auth_code;
 
         $session_info = new SessionInfo();
-        { 
+        {
             $session_info->appid = array(1, 2, 3, 4, 5, 6, 7);
             $session_info->auth_type = 0;
         }
@@ -56,29 +56,28 @@ try {
     $GetAuthInfoRsp = $ServiceCorpAPI->GetAuthInfo($authCorpId, $permanentCode);
     var_dump($GetAuthInfoRsp);
 
-    // 
+    //
     $code = "xxxxxxxxxx";
     $GetUserinfoBy3rdRsp = $ServiceCorpAPI->GetUserinfoBy3rd($code);
     var_dump($GetUserinfoBy3rdRsp);
 
     //
     $user_ticket = $GetUserInfoByCode->user_ticket;
-    if ( ! is_null($user_ticket)) {
+    if (! is_null($user_ticket)) {
         $GetUserDetailBy3rdRsp = $ServiceCorpAPI->GetUserDetailBy3rd($user_ticket);
         var_dump($GetUserDetailBy3rdRsp);
     }
-
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }
 
-try { // 第三方服务商使用永久授权码调用企业接口 
+try { // 第三方服务商使用永久授权码调用企业接口
     $authCorpId = "AUTH_CORPID";
-    $permanentCode = "PERMANENT_CODE"; 
+    $permanentCode = "PERMANENT_CODE";
     $authAgentId = 1000040;
 
     $ServiceCorpAPI = new ServiceCorpAPI(
-        "SUITE_ID", 
+        "SUITE_ID",
         "SUITE_SECRET",
         "SUITE_TICKET", // suite_ticket
         $authCorpId,
@@ -100,9 +99,7 @@ try { // 第三方服务商使用永久授权码调用企业接口
             )
         );
     }
-    $ServiceCorpAPI->MessageSend($message, $invalidUserIdList, $invalidPartyIdList, $invalidTagIdList); 
-
-} catch (Exception $e) { 
+    $ServiceCorpAPI->MessageSend($message, $invalidUserIdList, $invalidPartyIdList, $invalidTagIdList);
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }
-

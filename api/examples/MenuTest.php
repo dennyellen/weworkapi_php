@@ -18,21 +18,21 @@ $config = require('./config.php');
 $agentId = $config['APP_ID'];
 $api = new CorpAPI($config['CORP_ID'], $config['APP_SECRET']);
 
-try { 
+try {
     //
     $subMenu = new SubMenu(
-        "subMenu_1", 
+        "subMenu_1",
         array(
-            new viewMenu("viewMenu_1", "www.qq.com"), 
+            new viewMenu("viewMenu_1", "www.qq.com"),
             new viewMenu("viewMenu_2", "www.baidu.com")
         )
     );
     $scanCodePushMenu = new ScanCodePushMenu(
-        "ScanCodePushMenu", 
-        null, 
+        "ScanCodePushMenu",
+        null,
         array(
-            new viewMenu("viewMenu_3", "www.qq.com"), 
-            new PicWeixinMenu( "PicWeixinMenu", "keykeykey", null),
+            new viewMenu("viewMenu_3", "www.qq.com"),
+            new PicWeixinMenu("PicWeixinMenu", "keykeykey", null),
         )
     );
 
@@ -50,8 +50,6 @@ try {
 
     //
     $api->MenuDelete($agentId);
-
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }
-

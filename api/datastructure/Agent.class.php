@@ -15,7 +15,7 @@ class Agent
     public $redirect_domain = null; // string
     public $report_location_flag = null; // uint, 企业应用是否打开地理位置上报 0：不上报；1：进入会话上报；
     public $isreportenter = null; // uint, 是否上报用户进入应用事件。0：不接收；1：接收
-    public $home_url = null; // string 
+    public $home_url = null; // string
 
     public static function Array2Agent($arr)
     {
@@ -33,7 +33,7 @@ class Agent
 
         if (array_key_exists("allow_userinfos", $arr) && array_key_exists("user", $arr["allow_userinfos"])) {
             $userArr = $arr["allow_userinfos"]["user"];
-            foreach($userArr as $item) {
+            foreach ($userArr as $item) {
                 $agent->allow_userinfos[] = $item["userid"];
             }
         }
@@ -43,7 +43,7 @@ class Agent
             $agent->allow_partys = Utils::arrayGet($partyAr, "partyid");
         }
 
-        if (array_key_exists("allow_tags", $arr)) { 
+        if (array_key_exists("allow_tags", $arr)) {
             $tagArr= $arr["allow_tags"];
             $agent->allow_tags= Utils::arrayGet($tagArr, "tagid");
         }
@@ -55,7 +55,7 @@ class Agent
     {
         $agentLIst = array();
 
-        foreach($arr["agentlist"] as $item) {
+        foreach ($arr["agentlist"] as $item) {
             $agent = self::Array2Agent($item);
             $agentLIst[] = $agent;
         }
@@ -64,24 +64,24 @@ class Agent
     }
 
     public static function Agent2Array($agent)
-    { 
+    {
         $args = array();
 
-		Utils::setIfNotNull($agent->agentid, "agentid", $args);
-		Utils::setIfNotNull($agent->name, "name", $args);
-		Utils::setIfNotNull($agent->square_logo_url, "square_logo_url", $args);
-		Utils::setIfNotNull($agent->description, "description", $args);
-		Utils::setIfNotNull($agent->close, "close", $args);
-		Utils::setIfNotNull($agent->redirect_domain, "redirect_domain", $args);
-		Utils::setIfNotNull($agent->report_location_flag, "report_location_flag", $args);
-		Utils::setIfNotNull($agent->isreportenter, "isreportenter", $args);
-		Utils::setIfNotNull($agent->home_url, "home_url", $args); 
+        Utils::setIfNotNull($agent->agentid, "agentid", $args);
+        Utils::setIfNotNull($agent->name, "name", $args);
+        Utils::setIfNotNull($agent->square_logo_url, "square_logo_url", $args);
+        Utils::setIfNotNull($agent->description, "description", $args);
+        Utils::setIfNotNull($agent->close, "close", $args);
+        Utils::setIfNotNull($agent->redirect_domain, "redirect_domain", $args);
+        Utils::setIfNotNull($agent->report_location_flag, "report_location_flag", $args);
+        Utils::setIfNotNull($agent->isreportenter, "isreportenter", $args);
+        Utils::setIfNotNull($agent->home_url, "home_url", $args);
 
         return $args;
     }
 
     public static function CheckAgentSetArgs($agent)
-    { 
+    {
         utils::checkIsUInt($agent->agentid, "agentid");
     }
 }

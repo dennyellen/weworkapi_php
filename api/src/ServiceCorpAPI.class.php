@@ -18,24 +18,24 @@ include_once(__DIR__."/../datastructure/ServiceCorp.class.php");
 
 include_once(__DIR__."/API.class.php");
 
-class ServiceCorpAPI extends CorpAPI 
+class ServiceCorpAPI extends CorpAPI
 {
-    private $suite_id = null; // string 
-    private $suite_secret = null; // string 
-    private $suite_ticket = null; // string 
+    private $suite_id = null; // string
+    private $suite_secret = null; // string
+    private $suite_ticket = null; // string
 
-    private $authCorpId = null; // string 
-    private $permanentCode = null; // string 
+    private $authCorpId = null; // string
+    private $permanentCode = null; // string
 
     private $suiteAccessToken = null; // string
 
     public function __construct(
-        $suite_id=null, 
-        $suite_secret=null, 
-        $suite_ticket=null, 
-        $authCorpId=null, 
-        $permanentCode=null)
-    {
+        $suite_id = null,
+        $suite_secret = null,
+        $suite_ticket = null,
+        $authCorpId = null,
+        $permanentCode = null
+    ) {
         $this->suite_id = $suite_id;
         $this->suite_secret = $suite_secret;
         $this->suite_ticket = $suite_ticket;
@@ -55,9 +55,9 @@ class ServiceCorpAPI extends CorpAPI
         Utils::checkNotEmptyStr($this->authCorpId, "auth_corpid");
         Utils::checkNotEmptyStr($this->permanentCode, "permanent_code");
         $args = array(
-            "auth_corpid" => $this->authCorpId, 
+            "auth_corpid" => $this->authCorpId,
             "permanent_code" => $this->permanentCode
-        ); 
+        );
         $url = HttpUtils::MakeUrl("/cgi-bin/service/get_corp_token?suite_access_token=SUITE_ACCESS_TOKEN");
         $this->_HttpPostParseToJson($url, $args, false);
         $this->_CheckErrCode();
@@ -75,10 +75,10 @@ class ServiceCorpAPI extends CorpAPI
      * @return : string
      */
     protected function GetSuiteAccessToken()
-    { 
-        if ( ! Utils::notEmptyStr($this->suiteAccessToken)) { 
+    {
+        if (! Utils::notEmptyStr($this->suiteAccessToken)) {
             $this->RefreshSuiteAccessToken();
-        } 
+        }
         return $this->suiteAccessToken;
     }
     protected function RefreshSuiteAccessToken()
@@ -87,10 +87,10 @@ class ServiceCorpAPI extends CorpAPI
         Utils::checkNotEmptyStr($this->suite_secret, "suite_secret");
         Utils::checkNotEmptyStr($this->suite_ticket, "suite_ticket");
         $args = array(
-            "suite_id" => $this->suite_id, 
+            "suite_id" => $this->suite_id,
             "suite_secret" => $this->suite_secret,
             "suite_ticket" => $this->suite_ticket,
-        ); 
+        );
         $url = HttpUtils::MakeUrl("/cgi-bin/service/get_suite_token");
         $this->_HttpPostParseToJson($url, $args, false);
         $this->_CheckErrCode();
@@ -109,10 +109,10 @@ class ServiceCorpAPI extends CorpAPI
      * @return : string pre_auth_code
      */
     public function GetPreAuthCode()
-    { 
-        self::_HttpCall(self::GET_PRE_AUTH_CODE, 'GET', null); 
+    {
+        self::_HttpCall(self::GET_PRE_AUTH_CODE, 'GET', null);
         return $this->rspJson["pre_auth_code"];
-    } 
+    }
 
     /**
      * @brief SetSessionInfo : 设置授权配置
@@ -122,7 +122,7 @@ class ServiceCorpAPI extends CorpAPI
      * @param $SetSessionInfoReq
      */
     public function SetSessionInfo(SetSessionInfoReq $SetSessionInfoReq)
-    { 
+    {
         $args = $SetSessionInfoReq->FormatArgs();
         self::_HttpCall(self::SET_SESSION_INFO, 'POST', $args);
     }
@@ -137,8 +137,8 @@ class ServiceCorpAPI extends CorpAPI
      * @return : GetPermanentCodeRsp
      */
     public function GetPermanentCode($temp_auth_code)
-    { 
-        $args = array("auth_code" => $temp_auth_code); 
+    {
+        $args = array("auth_code" => $temp_auth_code);
         self::_HttpCall(self::GET_PERMANENT_CODE, 'POST', $args);
         return GetPermanentCodeRsp::ParseFromArray($this->rspJson);
     }
@@ -154,13 +154,13 @@ class ServiceCorpAPI extends CorpAPI
      * @return : GetAuthInfoRsp
      */
     public function GetAuthInfo($auth_corpid, $permanent_code)
-    { 
+    {
         Utils::checkNotEmptyStr($auth_corpid, "auth_corpid");
         Utils::checkNotEmptyStr($permanent_code, "permanent_code");
         $args = array(
             "auth_corpid" => $auth_corpid,
             "permanent_code" => $permanent_code
-        ); 
+        );
         self::_HttpCall(self::GET_AUTH_INFO, 'POST', $args);
         return GetAuthInfoRsp::ParseFromArray($this->rspJson);
     }
@@ -176,13 +176,13 @@ class ServiceCorpAPI extends CorpAPI
      * @return  : GetAdminListRsp
      */
     public function GetAdminList($auth_corpid, $agentid)
-    { 
+    {
         Utils::checkNotEmptyStr($auth_corpid, "auth_corpid");
         Utils::checkIsUInt($agentid, "agentid");
         $args = array(
             "auth_corpid" => $auth_corpid,
             "agentid" => $agentid
-        ); 
+        );
         self::_HttpCall(self::GET_ADMIN_LIST, 'POST', $args);
         return GetAdminListRsp::ParseFromArray($this->rspJson);
     }
@@ -197,8 +197,8 @@ class ServiceCorpAPI extends CorpAPI
      * @return  : GetUserinfoBy3rdRsp
      */
     public function GetUserinfoBy3rd($code)
-    { 
-        self::_HttpCall(self::GET_USER_INFO_BY_3RD, 'GET', array('code'=>$code)); 
+    {
+        self::_HttpCall(self::GET_USER_INFO_BY_3RD, 'GET', array('code'=>$code));
         return GetUserinfoBy3rdRsp::ParseFromArray($this->rspJson);
     }
 
@@ -212,11 +212,10 @@ class ServiceCorpAPI extends CorpAPI
      * @return  : GetUserDetailBy3rdRsp
      */
     public function GetUserDetailBy3rd($user_ticket)
-    { 
+    {
         Utils::checkNotEmptyStr($user_ticket, "user_ticket");
-        $args = array("user_ticket" => $user_ticket); 
+        $args = array("user_ticket" => $user_ticket);
         self::_HttpCall(self::GET_USER_DETAIL_BY_3RD, 'POST', $args);
         return GetUserDetailBy3rdRsp::ParseFromArray($this->rspJson);
     }
-
 }

@@ -2,15 +2,15 @@
 
 include_once(__DIR__."/../../utils/Utils.class.php");
 
-class UserInfoByCode 
+class UserInfoByCode
 {
-	public $UserId = null; // string
-	public $DeviceId = null; // string
-	public $user_ticket = null; // string
-	public $expires_in = null; // uint 
-	public $OpenId = null; // string
+    public $UserId = null; // string
+    public $DeviceId = null; // string
+    public $user_ticket = null; // string
+    public $expires_in = null; // uint
+    public $OpenId = null; // string
 
-    static public function Array2UserInfoByCode($arr)
+    public static function Array2UserInfoByCode($arr)
     {
         $info = new UserInfoByCode();
 
@@ -25,17 +25,18 @@ class UserInfoByCode
 }
 
 class UserDetailByUserTicket
-{ 
-	public $userid = null; // string
-	public $name = null; // string
-	public $department = null; // uint array 
-	public $position = null; // string
-	public $mobile = null; // string, 成员手机号，仅在用户同意snsapi_privateinfo授权时返回
-	public $gender = null; // uint, 性别。0表示未定义，1表示男性，2表示女性
-	public $email = null; // string
-	public $avatar = null; // string, 头像url。注：如果要获取小图将url最后的”/0”改成”/100”即可
+{
 
-    static public function Array2UserDetailByUserTicket($arr)
+    public $userid = null; // string
+    public $name = null; // string
+    public $department = null; // uint array
+    public $position = null; // string
+    public $mobile = null; // string, 成员手机号，仅在用户同意snsapi_privateinfo授权时返回
+    public $gender = null; // uint, 性别。0表示未定义，1表示男性，2表示女性
+    public $email = null; // string
+    public $avatar = null; // string, 头像url。注：如果要获取小图将url最后的”/0”改成”/100”即可
+
+    public static function Array2UserDetailByUserTicket($arr)
     {
         $info = null;
 

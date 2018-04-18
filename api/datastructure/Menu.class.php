@@ -3,94 +3,127 @@
 include_once(__DIR__."/../../utils/Utils.class.php");
 include_once(__DIR__."/../../utils/error.inc.php");
 
-class Menu { 
+class Menu
+{
     public $button = null; // xxxMenu array, 即各种子菜单array
 
-	public function __construct($xxmenuArray=null)
-	{
-		$this->button = $xxmenuArray;
-	}
+    public function __construct($xxmenuArray = null)
+    {
+        $this->button = $xxmenuArray;
+    }
 
-    public static function CheckMenuCreateArgs($menu) { 
-
+    public static function CheckMenuCreateArgs($menu)
+    {
     }
 
     public static function Array2Menu($arr)
     {
         $menu = new Menu();
 
-        foreach($arr["button"] as $item) { 
+        foreach ($arr["button"] as $item) {
             $subButton = null;
-            if ( ! array_key_exists("type", $item)) { 
+            if (! array_key_exists("type", $item)) {
                 $subButton = SubMenu::Array2Menu($item);
-            } else { 
+            } else {
                 $type = $item["type"];
-                if ($type == "click") $subButton = ClickMenu::Array2Menu($item);
-                if ($type == "view") $subButton = viewMenu::Array2Menu($item);
-                if ($type == "scancode_push") $subButton = ScanCodePushMenu::Array2Menu($item);
-                if ($type == "scancode_waitmsg") $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
-                if ($type == "pic_sysphoto") $subButton = PicSysPhotoMenu::Array2Menu($item);
-                if ($type == "pic_photo_or_album") $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
-                if ($type == "pic_weixin") $subButton = PicWeixinMenu::Array2Menu($item);
-                if ($type == "location_select") $subButton = LocationSelectMenu::Array2Menu($item);
+                if ($type == "click") {
+                    $subButton = ClickMenu::Array2Menu($item);
+                }
+                if ($type == "view") {
+                    $subButton = viewMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_push") {
+                    $subButton = ScanCodePushMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_waitmsg") {
+                    $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
+                }
+                if ($type == "pic_sysphoto") {
+                    $subButton = PicSysPhotoMenu::Array2Menu($item);
+                }
+                if ($type == "pic_photo_or_album") {
+                    $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
+                }
+                if ($type == "pic_weixin") {
+                    $subButton = PicWeixinMenu::Array2Menu($item);
+                }
+                if ($type == "location_select") {
+                    $subButton = LocationSelectMenu::Array2Menu($item);
+                }
             }
             $menu->button[] = $subButton;
         }
 
         return $menu;
     }
-
 } // class
 
 // ------------------------ 各种类型子菜单 ------------------------------------
 
-class SubMenu {
+class SubMenu
+{
     public $name = null; // string
     public $sub_button = null; // xxxMenu array
 
-	public function __construct($name=null, $xxmenuArray=null)
-	{
+    public function __construct($name = null, $xxmenuArray = null)
+    {
         $this->name = $name;
-		$this->sub_button = $xxmenuArray;
-	}
+        $this->sub_button = $xxmenuArray;
+    }
 
     public static function Array2Menu($arr)
     {
         $menu = new SubMenu();
 
         $menu->name = Utils::arrayGet($arr, "name");
-        foreach($arr["sub_button"] as $item) { 
-
+        foreach ($arr["sub_button"] as $item) {
             $subButton = null;
-            if ( ! array_key_exists("type", $item)) { 
+            if (! array_key_exists("type", $item)) {
                 $subButton = SubMenu::Array2Menu($item);
-            } else { 
+            } else {
                 $type = $item["type"];
-                if ($type == "click") $subButton = ClickMenu::Array2Menu($item);
-                if ($type == "view") $subButton = viewMenu::Array2Menu($item);
-                if ($type == "scancode_push") $subButton = ScanCodePushMenu::Array2Menu($item);
-                if ($type == "scancode_waitmsg") $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
-                if ($type == "pic_sysphoto") $subButton = PicSysPhotoMenu::Array2Menu($item);
-                if ($type == "pic_photo_or_album") $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
-                if ($type == "pic_weixin") $subButton = PicWeixinMenu::Array2Menu($item);
-                if ($type == "location_select") $subButton = LocationSelectMenu::Array2Menu($item);
+                if ($type == "click") {
+                    $subButton = ClickMenu::Array2Menu($item);
+                }
+                if ($type == "view") {
+                    $subButton = viewMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_push") {
+                    $subButton = ScanCodePushMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_waitmsg") {
+                    $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
+                }
+                if ($type == "pic_sysphoto") {
+                    $subButton = PicSysPhotoMenu::Array2Menu($item);
+                }
+                if ($type == "pic_photo_or_album") {
+                    $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
+                }
+                if ($type == "pic_weixin") {
+                    $subButton = PicWeixinMenu::Array2Menu($item);
+                }
+                if ($type == "location_select") {
+                    $subButton = LocationSelectMenu::Array2Menu($item);
+                }
             }
             $menu->sub_button[] = $subButton;
         }
 
         return $menu;
     }
-} 
-class ClickMenu {
+}
+class ClickMenu
+{
     public $type = "click";
     public $name = null; // string
     public $key = null; // string
 
-	public function __construct($name=null, $key=null, $xxmenuArray=null)
-	{
+    public function __construct($name = null, $key = null, $xxmenuArray = null)
+    {
         $this->name = $name;
         $this->key = $key;
-	}
+    }
 
     public static function Array2Menu($arr)
     {
@@ -103,16 +136,17 @@ class ClickMenu {
         return $menu;
     }
 }
-class viewMenu { 
+class viewMenu
+{
     public $type = "view";
     public $name = null; // string
     public $url = null; // string
 
-	public function __construct($name=null, $url= null)
-	{
-		$this->name = $name;
-		$this->url = $url;
-	}
+    public function __construct($name = null, $url = null)
+    {
+        $this->name = $name;
+        $this->url = $url;
+    }
 
     public static function Array2Menu($arr)
     {
@@ -124,19 +158,20 @@ class viewMenu {
 
         return $menu;
     }
-} 
-class ScanCodePushMenu { 
+}
+class ScanCodePushMenu
+{
     public $type = "scancode_push";
     public $name = null; // string
     public $key = null; // string
     public $sub_button = null; // xxxMenu array
 
-	public function __construct($name=null, $key=null, $xxmenuArray=null)
-	{
+    public function __construct($name = null, $key = null, $xxmenuArray = null)
+    {
         $this->name = $name;
         $this->key = $key;
-		$this->sub_button = $xxmenuArray;
-	}
+        $this->sub_button = $xxmenuArray;
+    }
 
     public static function Array2Menu($arr)
     {
@@ -146,39 +181,56 @@ class ScanCodePushMenu {
         $menu->name = Utils::arrayGet($arr, "name");
         $menu->key = Utils::arrayGet($arr, "key");
 
-        foreach($arr["sub_button"] as $item) { 
+        foreach ($arr["sub_button"] as $item) {
             $subButton = null;
-            if ( ! array_key_exists("type", $item)) { 
+            if (! array_key_exists("type", $item)) {
                 $subButton = SubMenu::Array2Menu($item);
-            } else { 
+            } else {
                 $type = $item["type"];
-                if ($type == "click") $subButton = ClickMenu::Array2Menu($item);
-                if ($type == "view") $subButton = viewMenu::Array2Menu($item);
-                if ($type == "scancode_push") $subButton = ScanCodePushMenu::Array2Menu($item);
-                if ($type == "scancode_waitmsg") $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
-                if ($type == "pic_sysphoto") $subButton = PicSysPhotoMenu::Array2Menu($item);
-                if ($type == "pic_photo_or_album") $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
-                if ($type == "pic_weixin") $subButton = PicWeixinMenu::Array2Menu($item);
-                if ($type == "location_select") $subButton = LocationSelectMenu::Array2Menu($item);
+                if ($type == "click") {
+                    $subButton = ClickMenu::Array2Menu($item);
+                }
+                if ($type == "view") {
+                    $subButton = viewMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_push") {
+                    $subButton = ScanCodePushMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_waitmsg") {
+                    $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
+                }
+                if ($type == "pic_sysphoto") {
+                    $subButton = PicSysPhotoMenu::Array2Menu($item);
+                }
+                if ($type == "pic_photo_or_album") {
+                    $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
+                }
+                if ($type == "pic_weixin") {
+                    $subButton = PicWeixinMenu::Array2Menu($item);
+                }
+                if ($type == "location_select") {
+                    $subButton = LocationSelectMenu::Array2Menu($item);
+                }
             }
             $menu->sub_button[] = $subButton;
         }
 
         return $menu;
     }
-} 
-class ScanCodeWaitMsgMenu { 
+}
+class ScanCodeWaitMsgMenu
+{
     public $type = "scancode_waitmsg";
     public $name = null; // string
     public $key = null; // string
     public $sub_button = null; // xxxMenu array
 
-	public function __construct($name=null, $key=null, $xxmenuArray=null)
-	{
+    public function __construct($name = null, $key = null, $xxmenuArray = null)
+    {
         $this->name = $name;
         $this->key = $key;
-		$this->sub_button = $xxmenuArray;
-	}
+        $this->sub_button = $xxmenuArray;
+    }
 
     public static function Array2Menu($arr)
     {
@@ -188,20 +240,36 @@ class ScanCodeWaitMsgMenu {
         $menu->name = Utils::arrayGet($arr, "name");
         $menu->key = Utils::arrayGet($arr, "key");
 
-        foreach($arr["sub_button"] as $item) { 
+        foreach ($arr["sub_button"] as $item) {
             $subButton = null;
-            if ( ! array_key_exists("type", $item)) { 
+            if (! array_key_exists("type", $item)) {
                 $subButton = SubMenu::Array2Menu($item);
-            } else { 
+            } else {
                 $type = $item["type"];
-                if ($type == "click") $subButton = ClickMenu::Array2Menu($item);
-                if ($type == "view") $subButton = viewMenu::Array2Menu($item);
-                if ($type == "scancode_push") $subButton = ScanCodePushMenu::Array2Menu($item);
-                if ($type == "scancode_waitmsg") $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
-                if ($type == "pic_sysphoto") $subButton = PicSysPhotoMenu::Array2Menu($item);
-                if ($type == "pic_photo_or_album") $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
-                if ($type == "pic_weixin") $subButton = PicWeixinMenu::Array2Menu($item);
-                if ($type == "location_select") $subButton = LocationSelectMenu::Array2Menu($item);
+                if ($type == "click") {
+                    $subButton = ClickMenu::Array2Menu($item);
+                }
+                if ($type == "view") {
+                    $subButton = viewMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_push") {
+                    $subButton = ScanCodePushMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_waitmsg") {
+                    $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
+                }
+                if ($type == "pic_sysphoto") {
+                    $subButton = PicSysPhotoMenu::Array2Menu($item);
+                }
+                if ($type == "pic_photo_or_album") {
+                    $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
+                }
+                if ($type == "pic_weixin") {
+                    $subButton = PicWeixinMenu::Array2Menu($item);
+                }
+                if ($type == "location_select") {
+                    $subButton = LocationSelectMenu::Array2Menu($item);
+                }
             }
             $menu->sub_button[] = $subButton;
         }
@@ -209,18 +277,19 @@ class ScanCodeWaitMsgMenu {
         return $menu;
     }
 }
-class PicSysPhotoMenu { 
+class PicSysPhotoMenu
+{
     public $type = "pic_sysphoto";
     public $name = null; // string
     public $key = null; // string
     public $sub_button = null; // xxxMenu array
 
-	public function __construct($name=null, $key=null, $xxmenuArray=null)
-	{
+    public function __construct($name = null, $key = null, $xxmenuArray = null)
+    {
         $this->name = $name;
         $this->key = $key;
-		$this->sub_button = $xxmenuArray;
-	}
+        $this->sub_button = $xxmenuArray;
+    }
 
     public static function Array2Menu($arr)
     {
@@ -230,20 +299,36 @@ class PicSysPhotoMenu {
         $menu->name = Utils::arrayGet($arr, "name");
         $menu->key = Utils::arrayGet($arr, "key");
 
-        foreach($arr["sub_button"] as $item) { 
+        foreach ($arr["sub_button"] as $item) {
             $subButton = null;
-            if ( ! array_key_exists("type", $item)) { 
+            if (! array_key_exists("type", $item)) {
                 $subButton = SubMenu::Array2Menu($item);
-            } else { 
+            } else {
                 $type = $item["type"];
-                if ($type == "click") $subButton = ClickMenu::Array2Menu($item);
-                if ($type == "view") $subButton = viewMenu::Array2Menu($item);
-                if ($type == "scancode_push") $subButton = ScanCodePushMenu::Array2Menu($item);
-                if ($type == "scancode_waitmsg") $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
-                if ($type == "pic_sysphoto") $subButton = PicSysPhotoMenu::Array2Menu($item);
-                if ($type == "pic_photo_or_album") $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
-                if ($type == "pic_weixin") $subButton = PicWeixinMenu::Array2Menu($item);
-                if ($type == "location_select") $subButton = LocationSelectMenu::Array2Menu($item);
+                if ($type == "click") {
+                    $subButton = ClickMenu::Array2Menu($item);
+                }
+                if ($type == "view") {
+                    $subButton = viewMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_push") {
+                    $subButton = ScanCodePushMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_waitmsg") {
+                    $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
+                }
+                if ($type == "pic_sysphoto") {
+                    $subButton = PicSysPhotoMenu::Array2Menu($item);
+                }
+                if ($type == "pic_photo_or_album") {
+                    $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
+                }
+                if ($type == "pic_weixin") {
+                    $subButton = PicWeixinMenu::Array2Menu($item);
+                }
+                if ($type == "location_select") {
+                    $subButton = LocationSelectMenu::Array2Menu($item);
+                }
             }
             $menu->sub_button[] = $subButton;
         }
@@ -251,18 +336,19 @@ class PicSysPhotoMenu {
         return $menu;
     }
 }
-class PicPhotoOrAlbumMenu { 
+class PicPhotoOrAlbumMenu
+{
     public $type = "pic_photo_or_album";
     public $name = null; // string
     public $key = null; // string
     public $sub_button = null; // xxxMenu array
 
-	public function __construct($name=null, $key=null, $xxmenuArray=null)
-	{
+    public function __construct($name = null, $key = null, $xxmenuArray = null)
+    {
         $this->name = $name;
         $this->key = $key;
-		$this->sub_button = $xxmenuArray;
-	}
+        $this->sub_button = $xxmenuArray;
+    }
 
     public static function Array2Menu($arr)
     {
@@ -272,20 +358,36 @@ class PicPhotoOrAlbumMenu {
         $menu->name = Utils::arrayGet($arr, "name");
         $menu->key = Utils::arrayGet($arr, "key");
 
-        foreach($arr["sub_button"] as $item) { 
+        foreach ($arr["sub_button"] as $item) {
             $subButton = null;
-            if ( ! array_key_exists("type", $item)) { 
+            if (! array_key_exists("type", $item)) {
                 $subButton = SubMenu::Array2Menu($item);
-            } else { 
+            } else {
                 $type = $item["type"];
-                if ($type == "click") $subButton = ClickMenu::Array2Menu($item);
-                if ($type == "view") $subButton = viewMenu::Array2Menu($item);
-                if ($type == "scancode_push") $subButton = ScanCodePushMenu::Array2Menu($item);
-                if ($type == "scancode_waitmsg") $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
-                if ($type == "pic_sysphoto") $subButton = PicSysPhotoMenu::Array2Menu($item);
-                if ($type == "pic_photo_or_album") $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
-                if ($type == "pic_weixin") $subButton = PicWeixinMenu::Array2Menu($item);
-                if ($type == "location_select") $subButton = LocationSelectMenu::Array2Menu($item);
+                if ($type == "click") {
+                    $subButton = ClickMenu::Array2Menu($item);
+                }
+                if ($type == "view") {
+                    $subButton = viewMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_push") {
+                    $subButton = ScanCodePushMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_waitmsg") {
+                    $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
+                }
+                if ($type == "pic_sysphoto") {
+                    $subButton = PicSysPhotoMenu::Array2Menu($item);
+                }
+                if ($type == "pic_photo_or_album") {
+                    $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
+                }
+                if ($type == "pic_weixin") {
+                    $subButton = PicWeixinMenu::Array2Menu($item);
+                }
+                if ($type == "location_select") {
+                    $subButton = LocationSelectMenu::Array2Menu($item);
+                }
             }
             $menu->sub_button[] = $subButton;
         }
@@ -293,18 +395,19 @@ class PicPhotoOrAlbumMenu {
         return $menu;
     }
 }
-class PicWeixinMenu { 
+class PicWeixinMenu
+{
     public $type = "pic_weixin";
     public $name = null; // string
     public $key = null; // string
     public $sub_button = null; // xxxMenu array
 
-	public function __construct($name=null, $key=null, $xxmenuArray=null)
-	{
+    public function __construct($name = null, $key = null, $xxmenuArray = null)
+    {
         $this->name = $name;
         $this->key = $key;
-		$this->sub_button = $xxmenuArray;
-	}
+        $this->sub_button = $xxmenuArray;
+    }
 
     public static function Array2Menu($arr)
     {
@@ -314,20 +417,36 @@ class PicWeixinMenu {
         $menu->name = Utils::arrayGet($arr, "name");
         $menu->key = Utils::arrayGet($arr, "key");
 
-        foreach($arr["sub_button"] as $item) { 
+        foreach ($arr["sub_button"] as $item) {
             $subButton = null;
-            if ( ! array_key_exists("type", $item)) { 
+            if (! array_key_exists("type", $item)) {
                 $subButton = SubMenu::Array2Menu($item);
-            } else { 
+            } else {
                 $type = $item["type"];
-                if ($type == "click") $subButton = ClickMenu::Array2Menu($item);
-                if ($type == "view") $subButton = viewMenu::Array2Menu($item);
-                if ($type == "scancode_push") $subButton = ScanCodePushMenu::Array2Menu($item);
-                if ($type == "scancode_waitmsg") $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
-                if ($type == "pic_sysphoto") $subButton = PicSysPhotoMenu::Array2Menu($item);
-                if ($type == "pic_photo_or_album") $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
-                if ($type == "pic_weixin") $subButton = PicWeixinMenu::Array2Menu($item);
-                if ($type == "location_select") $subButton = LocationSelectMenu::Array2Menu($item);
+                if ($type == "click") {
+                    $subButton = ClickMenu::Array2Menu($item);
+                }
+                if ($type == "view") {
+                    $subButton = viewMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_push") {
+                    $subButton = ScanCodePushMenu::Array2Menu($item);
+                }
+                if ($type == "scancode_waitmsg") {
+                    $subButton = ScanCodeWaitMsgMenu::Array2Menu($item);
+                }
+                if ($type == "pic_sysphoto") {
+                    $subButton = PicSysPhotoMenu::Array2Menu($item);
+                }
+                if ($type == "pic_photo_or_album") {
+                    $subButton = PicPhotoOrAlbumMenu::Array2Menu($item);
+                }
+                if ($type == "pic_weixin") {
+                    $subButton = PicWeixinMenu::Array2Menu($item);
+                }
+                if ($type == "location_select") {
+                    $subButton = LocationSelectMenu::Array2Menu($item);
+                }
             }
             $menu->sub_button[] = $subButton;
         }
@@ -335,16 +454,17 @@ class PicWeixinMenu {
         return $menu;
     }
 }
-class LocationSelectMenu { 
+class LocationSelectMenu
+{
     public $type = "location_select";
     public $name = null; // string
     public $key = null; // string
 
-	public function __construct($name=null, $key=null, $xxmenuArray=null)
-	{
+    public function __construct($name = null, $key = null, $xxmenuArray = null)
+    {
         $this->name = $name;
         $this->key = $key;
-	}
+    }
 
     public static function Array2Menu($arr)
     {
@@ -357,4 +477,3 @@ class LocationSelectMenu {
         return $menu;
     }
 }
-

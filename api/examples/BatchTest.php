@@ -35,7 +35,6 @@ try {
     var_dump($jobResult);
 
     //
-
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }

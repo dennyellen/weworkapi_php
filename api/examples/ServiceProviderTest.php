@@ -15,7 +15,7 @@ include_once("../src/ServiceProviderAPI.class.php");
  
 try {
     $ServiceProviderAPI = new ServiceProviderAPI(
-        "CORPID", 
+        "CORPID",
         "PROVIDER_SECRET"
     );
     //
@@ -31,7 +31,7 @@ try {
 
     //
     $GetLoginInfoRsp = $ServiceProviderAPI->GetLoginInfo("xxxxxxxxxxxxxx");
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }
 
@@ -49,13 +49,12 @@ try {
 
     //
     $ServiceProviderAPI->SetContactSyncSuccess($access_token);
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }
 
 
 try {
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }
-

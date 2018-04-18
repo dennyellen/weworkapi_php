@@ -20,7 +20,7 @@ $config = require('./config.php');
 $api = new CorpAPI($config['CORP_ID'], $config['CONTACT_SYNC_SECRET']);
 
 
-try { 
+try {
     //
     $user = new User();
     {
@@ -28,12 +28,12 @@ try {
         $user->name = "name";
         $user->mobile = "131488888888";
         $user->email = "sbzhu@ipp.cas.cn";
-        $user->department = array(1); 
+        $user->department = array(1);
 
         $ExtattrList = new ExtattrList();
         $ExtattrList->attrs = array(new ExtattrItem("s_a_2", "aaa"), new ExtattrItem("s_a_3", "bbb"));
         $user->extattr = $ExtattrList;
-    } 
+    }
     $api->UserCreate($user);
 
     //
@@ -42,7 +42,7 @@ try {
 
     //
     $user->mobile = "1219887219873";
-    $api->UserUpdate($user); 
+    $api->UserUpdate($user);
 
     //
     $userList = $api->userSimpleList(1, 0);
@@ -69,8 +69,8 @@ try {
     $api->UserBatchDelete(array("userid", "aaa"));
 
     //
-    $api->UserDelete("userid"); 
-} catch (Exception $e) { 
+    $api->UserDelete("userid");
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
-    $api->UserDelete("userid"); 
+    $api->UserDelete("userid");
 }

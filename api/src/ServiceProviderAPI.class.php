@@ -25,17 +25,17 @@ class ServiceProviderAPI extends API
     /**
      * 调用SetAgentScope/SetContactSyncSuccess 两个接口可以不用传corpid/provider_secret
      */
-    public function __construct($corpid=null, $provider_secret=null)
+    public function __construct($corpid = null, $provider_secret = null)
     {
         $this->corpid = $corpid;
         $this->provider_secret = $provider_secret;
     }
 
     protected function GetProviderAccessToken()
-    { 
-        if ( ! Utils::notEmptyStr($this->provider_access_token)) { 
+    {
+        if (! Utils::notEmptyStr($this->provider_access_token)) {
             $this->RefreshProviderAccessToken();
-        } 
+        }
         return $this->provider_access_token;
     }
     protected function RefreshProviderAccessToken()
@@ -44,9 +44,9 @@ class ServiceProviderAPI extends API
         Utils::checkNotEmptyStr($this->provider_secret, "provider_secret");
 
         $args = array(
-            "corpid" => $this->corpid, 
+            "corpid" => $this->corpid,
             "provider_secret" => $this->provider_secret
-        ); 
+        );
         $url = HttpUtils::MakeUrl("/cgi-bin/service/get_provider_token");
         $this->_HttpPostParseToJson($url, $args, false);
         $this->_CheckErrCode();
@@ -67,9 +67,9 @@ class ServiceProviderAPI extends API
      * @return : GetLoginInfoRsp
      */
     public function GetLoginInfo($auth_code)
-    { 
+    {
         Utils::checkNotEmptyStr($auth_code, "auth_code");
-        $args = array("auth_code" => $auth_code); 
+        $args = array("auth_code" => $auth_code);
         self::_HttpCall(self::GET_LOGIN_INFO, 'POST', $args);
         return GetLoginInfoRsp::ParseFromArray($this->rspJson);
     }
@@ -86,7 +86,7 @@ class ServiceProviderAPI extends API
      * @return : string register_code
      */
     public function GetRegisterCode(GetRegisterCodeReq $GetRegisterCodeReq)
-    { 
+    {
         $args = $GetRegisterCodeReq->FormatArgs();
         self::_HttpCall(self::GET_REGISTER_CODE, 'POST', $args);
         return $this->rspJson["register_code"];
@@ -102,9 +102,9 @@ class ServiceProviderAPI extends API
      * @return : GetRegisterInfoRsp
      */
     public function GetRegisterInfo($register_code)
-    { 
+    {
         Utils::checkNotEmptyStr($register_code, "register_code");
-        $args = array("register_code" => $register_code); 
+        $args = array("register_code" => $register_code);
         self::_HttpCall(self::GET_REGISTER_INFO, 'POST', $args);
         return GetRegisterInfoRsp::ParseFromArray($this->rspJson);
     }
@@ -120,7 +120,7 @@ class ServiceProviderAPI extends API
      * @return : SetAgentScopeRsp
      */
     public function SetAgentScope($access_token, SetAgentScopeReq $SetAgentScopeReq)
-    { 
+    {
         $args = $SetAgentScopeReq->FormatArgs();
         self::_HttpCall(self::SET_AGENT_SCOPE."?access_token={$access_token}", 'POST', $args);
         return SetAgentScopeRsp::ParseFromArray($this->rspJson);
@@ -134,7 +134,7 @@ class ServiceProviderAPI extends API
      * @param $access_token : 该接口只能使用注册完成回调事件或者查询注册状态返回的access_token
      */
     public function SetContactSyncSuccess($access_token)
-    { 
-        self::_HttpCall(self::SET_CONTACT_SYNC_SUCCESS."?access_token={$access_token}", 'GET', null); 
+    {
+        self::_HttpCall(self::SET_CONTACT_SYNC_SUCCESS."?access_token={$access_token}", 'GET', null);
     }
 }

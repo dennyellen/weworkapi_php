@@ -35,7 +35,6 @@ try {
     //
     $agentList = $api->AgentGetList();
     var_dump($agentList);
-
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }

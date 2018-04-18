@@ -20,7 +20,7 @@ $config = require('./config.php');
 $api = new CorpAPI($config['CORP_ID'], $config['CONTACT_SYNC_SECRET']);
 
  
-try { 
+try {
     //
     $department = new Department();
     {
@@ -41,7 +41,7 @@ try {
 
     //
     $api->DepartmentDelete($departmentId);
-} catch (Exception $e) { 
+} catch (Exception $e) {
     echo $e->getMessage() . "\n";
     $api->DepartmentDelete($departmentId);
 }
