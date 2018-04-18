@@ -1,6 +1,6 @@
 <?php
 
-include_once(__DIR__ . "error.inc.php");
+include_once("../utils/error.inc.php");
 
 class Util
 {
