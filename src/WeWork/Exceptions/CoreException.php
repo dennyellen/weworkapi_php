@@ -1,4 +1,7 @@
 <?php
+namespace WeWork\Exceptions;
+
+use Exception;
 
 class CoreException extends Exception
 {
