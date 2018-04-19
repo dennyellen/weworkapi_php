@@ -1,5 +1,11 @@
 <?php
-include_once "ErrorCode.php";
+//include_once "ErrorCode.php";
+
+namespace WeWork\Crypt;
+
+use WeWork\Util\ErrorCode;
+use Exception;
+use DOMDocument;
 
 /**
  * XMLParse class
@@ -9,6 +15,7 @@ include_once "ErrorCode.php";
 class XMLParse
 {
 
+    use ErrorCode;
     /**
      * 提取出xml数据包中的加密消息
      * @param string $xmltext 待提取的xml字符串

@@ -1,5 +1,8 @@
 <?php
-include_once "../ErrorCode.php";
+//include_once "../ErrorCode.php";
+namespace WeWork\Crypt;
+
+use WeWork\Util\ErrorCode;
 
 /**
  * PKCS7Encoder class
@@ -8,6 +11,7 @@ include_once "../ErrorCode.php";
  */
 class PKCS7Encoder
 {
+    use ErrorCode;
     public static $block_size = 32;
 
     /**

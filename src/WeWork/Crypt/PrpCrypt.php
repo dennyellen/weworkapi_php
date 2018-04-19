@@ -1,13 +1,19 @@
 <?php
-include_once "../ErrorCode.php";
-include_once "PKCS7Encoder.php";
+//include_once "../ErrorCode.php";
+//include_once "PKCS7Encoder.php";
+namespace WeWork\Crypt;
+
+use WeWork\Util\ErrorCode;
+use Exception;
+
 /**
  * Prpcrypt class
  *
  * 提供接收和推送给公众平台消息的加解密接口.
  */
-class Prpcrypt
+class PrpCrypt
 {
+    use ErrorCode;
     public $key;
 
     public function __construct($k)

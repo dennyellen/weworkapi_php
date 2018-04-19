@@ -1,5 +1,7 @@
 <?php
 
+namespace WeWork\Util;
+
 /**
  * 对公众平台发送给公众账号的消息加解密示例代码.
  *
@@ -7,10 +9,11 @@
  */
 
 
-include_once "SHA1.php";
-include_once "XMLParse.php";
-include_once "Crypt/PKCS7Encoder.php";
-include_once "ErrorCode.php";
+//include_once "SHA1.php";
+//include_once "XMLParse.php";
+//include_once "Crypt/PKCS7Encoder.php";
+//include_once "ErrorCode.php";
+use WeWork\Crypt\PrpCrypt;
 
 /**
  * 1.第三方回复加密消息给公众平台；
@@ -18,6 +21,7 @@ include_once "ErrorCode.php";
  */
 class WXBizMsgCrypt
 {
+    use ErrorCode;
     private $m_sToken;
     private $m_sEncodingAesKey;
     private $m_sCorpid;
@@ -50,7 +54,7 @@ class WXBizMsgCrypt
             return ErrorCode::$IllegalAesKey;
         }
 
-        $pc = new Prpcrypt($this->m_sEncodingAesKey);
+        $pc = new PrpCrypt($this->m_sEncodingAesKey);
         //verify msg_signature
         $sha1 = new SHA1;
         $array = $sha1->getSHA1($this->m_sToken, $sTimeStamp, $sNonce, $sEchoStr);
@@ -91,7 +95,7 @@ class WXBizMsgCrypt
      */
     public function encryptMsg($sReplyMsg, $sTimeStamp, $sNonce, &$sEncryptMsg)
     {
-        $pc = new Prpcrypt($this->m_sEncodingAesKey);
+        $pc = new PrpCrypt($this->m_sEncodingAesKey);
 
         //加密
         $array = $pc->encrypt($sReplyMsg, $this->m_sCorpid);

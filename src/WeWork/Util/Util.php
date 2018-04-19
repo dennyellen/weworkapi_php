@@ -1,6 +1,9 @@
 <?php
+namespace WeWork\Util;
 
-include_once("../utils/error.inc.php");
+//include_once("../utils/error.inc.php");
+
+use ParameterError;
 
 class Util
 {

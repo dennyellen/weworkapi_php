@@ -1,7 +1,9 @@
 <?php
+namespace WeWork\Util;
 
-include_once "ErrorCode.php";
+use Exception;
 
+//include_once "ErrorCode.php";
 /**
  * SHA1 class
  *
@@ -9,6 +11,7 @@ include_once "ErrorCode.php";
  */
 class SHA1
 {
+    use ErrorCode;
     /**
      * 用SHA1算法生成安全签名
      * @param string $token 票据

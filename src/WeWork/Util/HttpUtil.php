@@ -1,5 +1,12 @@
 <?php
-include_once("../utils/error.inc.php");
+namespace WeWork\Util;
+
+//include_once("../utils/error.inc.php");
+
+use WeWork\Exceptions\HttpException;
+use WeWork\Exceptions\InternalException;
+use WeWork\Exceptions\NetWorkException;
+
 class HttpUtil
 {
     /**
@@ -69,7 +76,7 @@ class HttpUtil
      * http get
      * @param string $url
      * @return mixed http response body
-     * @throws InternalError
+     * @throws InternalException
      */
     public static function httpGet($url)
     {
@@ -88,17 +95,17 @@ class HttpUtil
 
         try {
             return self::__exec($ch);
-        } catch (HttpError $e) {
-        } catch (NetWorkError $e) {
+        } catch (HttpException $e) {
+        } catch (NetWorkException $e) {
         }
     }
 
     /**
      * http post
      * @param string $url
-     * @param string or dict $postData
+     * @param $postData
      * @return mixed http response body
-     * @throws InternalError
+     * @throws InternalException
      */
     public static function httpPost($url, $postData)
     {
@@ -117,10 +124,11 @@ class HttpUtil
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 
+
         try {
             return self::__exec($ch);
-        } catch (HttpError $e) {
-        } catch (NetWorkError $e) {
+        } catch (HttpException $e) {
+        } catch (NetWorkException $e) {
         }
     }
 
@@ -140,8 +148,8 @@ class HttpUtil
     /**
      * @param $ch
      * @return mixed
-     * @throws HttpError
-     * @throws NetWorkError
+     * @throws HttpException
+     * @throws NetWorkException
      */
     private static function __exec($ch)
     {
@@ -150,11 +158,11 @@ class HttpUtil
         curl_close($ch);
 
         if ($output === false) {
-            throw new NetWorkError("network error");
+            throw new NetWorkException("network error");
         }
 
         if (intval($status["http_code"]) != 200) {
-            throw new HttpError(
+            throw new HttpException(
                 "unexpected http code " . intval($status["http_code"])
             );
         }
@@ -163,12 +171,12 @@ class HttpUtil
     }
 
     /**
-     * @throws InternalError
+     * @throws InternalException
      */
     private static function __checkDeps()
     {
         if (!function_exists("curl_init")) {
-            throw new InternalError("missing curl extend");
+            throw new InternalException("missing curl extend");
         }
     }
 }

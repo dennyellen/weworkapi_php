@@ -1,5 +1,5 @@
 <?php
-
+namespace WeWork\Util;
 /**
  * error code 说明.
  * <ul>
@@ -16,7 +16,7 @@
  *    <li>-40011: 生成xml失败</li>
  * </ul>
  */
-class ErrorCode
+trait ErrorCode
 {
     public static $OK = 0;
     public static $ValidateSignatureError = -40001;
